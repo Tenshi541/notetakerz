@@ -2,8 +2,9 @@ const util = require('util')
 const fs = require('fs')
 
 // install uuid 
-const uuidv4 = require('uuid/v4')
-
+const uuidv4 = require('uuidv4')
+const readFileAsync = util.promisify(fs.readFile)
+const writeFileAsync = util.promisify(fs.writeFile)
 class Store {
   // read function
   read() {
@@ -28,8 +29,20 @@ class Store {
     })
   }
   // addNewNote
-
+  addNewNote() {
+    const { title, text } = note
+    const newNote = { title, text, id: uuidv4() }
+    return this.getAllNotes()
+      .then((notes) => [...notes, newNote])
+      .then((updatedNotes) => this.write(updatedNotes))
+      .then(() => newNote)
+  }
   //deleteNote
+  deleteNote() {
+    return this.getAllNotes()
+      .then((notes) => notes.filter((note) => note.id !== id))
+      .then((filteredNotes) => this.write(filteredNotes))
+  }
 }
 
 module.exports = new Store();

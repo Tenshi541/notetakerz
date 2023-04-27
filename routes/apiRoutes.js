@@ -3,22 +3,26 @@ const store = require('../db/store')
 
 // GET '/api/notes' should return all notes from db
 router.get('/notes', (req, res) => {
-  // get from db all notes
-  db.getAllNotes()
+  store
+    .getAllNotes()
     .then((notes) => {
       return res.json(notes)
     })
-    .catch((err) => res.status(500).json(err))
-})
+    .catch((error) => res.status(500).json(error))
+});
 
 router.post('/notes', (req, res) => {
-  req.body.id = notes.length.toString();
-  let note = createNewNote(req.body, notes);
-  res.json(note)
-})
+  store
+    .addNewNote(req.body)
+    .then((note) => res.json(note))
+    .catch((err) => res.status(500).json(err))
+});
 
 router.delete('/notes/:id', (req, res) => {
-  delete(notes, req.params.id);
-  res.json(notes);
-})
+  store
+    .delete(req.params.id)
+    .then(() => res.json({ ok: true }))
+    .catch((err) => res.status(500).json(err))
+
+});
 module.exports = router;

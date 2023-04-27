@@ -2,7 +2,7 @@ const util = require('util');
 const fs = require('fs');
 
 // install uuid 
-const uuidv1 = require('uuid/v1');
+var uuidv1 = require('uuidv1')
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 class Store {

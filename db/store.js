@@ -5,45 +5,70 @@ const fs = require('fs');
 var uuidv1 = require('uuidv1')
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
+
 class Store {
   // read function
-  read() {
-    return readFileAsync('db/db.json', 'utf8')
+  async read() {
+    try {
+      const notes = await readFileAsync('db/db.json', 'utf8');
+      return JSON.parse(notes);
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
+
   // write function
-  write(note) {
-    return writeFileAsync('db/db.json', JSON.stringify(note));
+  async write(note) {
+    try {
+      await writeFileAsync('db/db.json', JSON.stringify(note));
+    } catch (error) {
+      console.error(error);
+    }
   }
+
   // getAllNotes
-  getAllNotes() {
-    return this.read().then((notes) => {
-      let returnedNotes;
-
-      try {
-        returnedNotes = [].concat(JSON.parse(notes));
-      } catch (error) {
-        returnedNotes = [];
-      }
-
-      return returnedNotes;
-    });
+  async getAllNotes() {
+    try {
+      const notes = await this.read();
+      return notes;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
+
   // addNewNote
- addNewNote() {
-    return this.getAllNotes().then((notes) => {
-      let newNote = req.body
-      notes.push(newNote)
-      this.write(notes)
-    })
+  async addNewNote(req) {
+    try {
+      const notes = await this.getAllNotes();
+      const newNote = req.body;
+      if (!newNote) {
+        throw new Error('New note cannot be empty');
+      }
+      newNote.id = uuidv1();
+      notes.push(newNote);
+      await this.write(notes);
+      return newNote;
+    } catch (error) {
+      console.error(error);
+    }
   }
+
   // deleteNote
-  delete(id) {
-    return this.getAllNotes().then((notes) => {
+  async delete(id) {
+    try {
+      const notes = await this.getAllNotes();
+      if (!id) {
+        throw new Error('Note id cannot be empty');
+      }
       const filteredNotes = notes.filter((note) => note.id !== id);
-      this.write(filteredNotes);
-    });
+      await this.write(filteredNotes);
+      return filteredNotes;
+    } catch (error) {
+      console.error(error);
+    }
   }
- 
 }
 
 module.exports = new Store();

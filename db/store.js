@@ -39,21 +39,22 @@ class Store {
   }
 
   // addNewNote
-  async addNewNote(req) {
+  async addNewNote(note) {
     try {
-      const notes = await this.getAllNotes();
-      const newNote = req.body;
-      if (!newNote) {
-        throw new Error('New note cannot be empty');
+      const { title, text } = note;
+      if (!title || !text) {
+        throw new Error('Note title and text cannot be empty');
       }
-      newNote.id = uuidv1();
-      notes.push(newNote);
-      await this.write(notes);
+      const newNote = { title, text, id: uuidv1() };
+      const notes = await this.getAllNotes();
+      const updatedNotes = [...notes, newNote];
+      await this.write(updatedNotes);
       return newNote;
     } catch (error) {
       console.error(error);
     }
   }
+
 
   // deleteNote
   async delete(id) {

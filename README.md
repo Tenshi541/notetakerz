@@ -27,4 +27,4 @@ node server.js
 This project is licensed under the MIT license.
 
 ## Questions
-If you have any questions about the repo, open an issue or contact me directly at [${email}](mailto:${angelzavaleta541@gmail.com}). You can find more of my work at [${Tenshi541}]
+If you have any questions about the repo, open an issue or contact me directly at [${angelzavaleta541@gmail.com}](mailto:${angelzavaleta541@gmail.com}). You can find more of my work at [${Tenshi541}]

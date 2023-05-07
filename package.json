@@ -22,6 +22,6 @@
   "dependencies": {
     "express": "^4.18.2",
     "uuid": "^9.0.0",
-    "uuidv1": "^6.2.13"
+    "uuidv1": "^1.6.14"
   }
 }

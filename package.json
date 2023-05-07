@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "homepage": "https://github.com/Tenshi541/notetakerz/",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -18,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/Tenshi541/notetakerz/issues"
   },
-  
   "dependencies": {
     "express": "^4.18.2",
     "uuid": "^9.0.0",

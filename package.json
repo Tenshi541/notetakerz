@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/Tenshi541/notetakerz/issues"
   },
-  "homepage": "https://github.com/Tenshi541/notetakerz#readme",
+  "homepage": "https://github.com/Tenshi541/notetakerz",
   "dependencies": {
     "express": "^4.18.2",
     "uuid": "^9.0.0",

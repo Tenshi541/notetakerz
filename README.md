@@ -13,15 +13,11 @@ This application allows the user to create, view, and delete notes. The user can
 
 ## Installation
 To install the necessary dependencies, run the following command:
-\`\`\`
 npm i
-\`\`\`
 
 ## Usage
 To use this application, run the following command:
-\`\`\`
 node server.js
-\`\`\`
 
 ## License
 This project is licensed under the MIT license.
